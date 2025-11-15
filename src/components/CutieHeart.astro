@@ -1,0 +1,23 @@
+<cutie-heart>
+  <button class="h-9 cursor-pointer text-3xl text-fuchsia-300 active:text-2xl" aria-label="Heart">❤︎</button> <span class="text-sm font-jetbrains">×</span> <span class="counter font-jetbrains">0</span>
+</cutie-heart>
+
+<script>
+  class CutieHeart extends HTMLElement {
+    connectedCallback() {
+      const button = this.querySelector('button');
+      const counter = this.querySelector('span.counter');
+      let count = 0;
+
+      if(button && counter) {
+        button.addEventListener('click', (e) => {
+        count += 1;
+        counter.textContent = count.toString();
+        e.preventDefault();
+      });
+      }
+    }
+  }
+
+  customElements.define('cutie-heart', CutieHeart);
+</script>

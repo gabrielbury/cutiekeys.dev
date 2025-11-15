@@ -1,0 +1,33 @@
+---
+import '../styles/global.css';
+const { title } = Astro.props;
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+
+	</head>
+  <body class="h-full w-full">
+    <main>
+			<header class="fixed top-0 left-0 right-0 z-50
+         flex h-18 bg-surface text-zinc-900 items-center justify-between
+         px-12 border-b border-line">
+				<div class="flex flex-row gap-0 items-baseline">
+					<span class="font-semibold text-4xl uppercase font-major text-accent-mint antialiased">c</span>
+					<span class="font-light text-sm text-accent-mint antialiased">utie</span>
+					<span class="font-semibold text-4xl uppercase font-major text-accent-mint antialiased">k</span>
+					<span class="font-light text-sm text-accent-mint antialiased">eys</span>
+					<span class="font-light font-jetbrains text-accent-pink antialiased">.dev</span>
+				</div>
+			</header>
+		</main>
+    <div class="flex bg-ink px-12 py-8 text-text-primary pt-24">
+      <slot />
+    </div>
+  </body>
+</html>

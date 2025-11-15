@@ -1,0 +1,51 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import Layout from '../layouts/BaseLayout.astro';
+import CutieHeart from "../components/CutieHeart.astro";
+import "../styles/global.css";
+
+const keyboards = (await getCollection('keyboards')).sort((a: CollectionEntry<'keyboards'>, b: CollectionEntry<'keyboards'>) => {
+  const orderA = a.data.order ?? 999;
+  const orderB = b.data.order ?? 999;
+  return orderA - orderB;
+});
+
+const title = "CutieKeys.dev - Cute Concept Mechanical Keyboards";
+---
+
+
+<Layout title={title}>
+  <div class="flex flex-1 items-center justify-center">
+			<div class="grid grid-cols-2 md:grid-cols-3 gap-8">
+      {keyboards.map((kb:CollectionEntry<'keyboards'>) => (
+        <div class="flex flex-col gap-y-1 items-center justify-center border border-surface-soft border-t-0 rounded-b-2xl">
+          <a
+            href={`/keyboards/${kb.data.link}`}
+            class="group card overflow-hidden hover:border-accent-pink transition"
+          >
+            <div class="aspect-video overflow-hidden">
+              <img
+                src={kb.data.thumb}
+                alt={kb.data.title}
+                loading="lazy"
+                class="w-72 h-full object-cover group-hover:scale-115 transition duration-500"
+              />
+            </div>
+
+            <div class="p-4 px-2 flex flex-col gap-1">
+              <h2 class="font-medium">{kb.data.title}</h2>
+              <div class="flex flex-1 items-center justify-between leading-relaxed">
+                {kb.data.status && (
+                  <span class="text-[0.7rem] uppercase tracking-[0.2em] text-text-muted">
+                    {kb.data.status}
+                  </span>
+                )}
+                <CutieHeart />
+              </div>
+            </div>
+          </a>
+        </div>
+      ))}
+      </div>
+    </div>
+</Layout>

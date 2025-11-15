@@ -1,0 +1,39 @@
+---
+import Layout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const keyboards = await getCollection('keyboards');
+  return keyboards.map((kb) => ({
+    params: { slug: kb.data.link },
+    props: { keyboard: kb },
+  }));
+}
+
+const { keyboard } = Astro.props;
+const { title, thumb, status } = keyboard.data;
+---
+
+<Layout title={`${title} | LunaKeys Studio`}>
+  <article class="page-shell section-y space-y-6 h-[calc(100dvh-8.5rem)]">
+    <header class="space-y-2">
+      <p class="section-label">
+        keyboard concept
+      </p>
+      <h1 class="text-3xl md:text-4xl font-semibold">{title}</h1>
+      {status && (
+        <p class="text-xs uppercase tracking-[0.2em] text-text-muted">
+          {status}
+        </p>
+      )}
+    </header>
+
+    <div class="card overflow-hidden">
+      <img src={thumb} alt={title} class="w-126 object-cover" />
+    </div>
+
+    <div class="prose prose-invert max-w-none">
+      {keyboard.body} {/* markdown description */}
+    </div>
+  </article>
+</Layout>
